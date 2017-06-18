@@ -11,7 +11,8 @@
 
   <PropertyGroup>
     <BuildRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.root))</BuildRoot>
-    <TargetsPath>$(BuildRoot)\Build</TargetsPath>
+    <BuildRoot Condition="'$(BuildRoot)' == ''">$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\))</BuildRoot>
+    <TargetsPath>$(BuildRoot)\build</TargetsPath>
     <OutDirIsInCommandLine Condition="'$(OutDirIsInCommandLine)'=='' AND '$(OutDir)'!=''">true</OutDirIsInCommandLine>
     <OutDirIsInCommandLine Condition="'$(OutDirIsInCommandLine)'=='' AND '$(OutDir)'==''">false</OutDirIsInCommandLine>
     <ServiceHostingSDKInstallDir>$(BuildRoot)\references\Azure SDK\v1.6</ServiceHostingSDKInstallDir>
